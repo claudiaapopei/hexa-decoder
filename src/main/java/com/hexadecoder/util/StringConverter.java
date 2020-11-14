@@ -6,7 +6,7 @@ public class StringConverter {
         return Integer.valueOf(value);
     }
 
-    public static byte toByte(String value) {
+    public static byte toHexByte(String value) {
         return Integer.decode("0x" + value).byteValue();
     }
 }

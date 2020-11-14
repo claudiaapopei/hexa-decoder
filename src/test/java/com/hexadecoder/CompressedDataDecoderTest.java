@@ -3,12 +3,11 @@ package com.hexadecoder;
 import org.junit.jupiter.api.*;
 
 import java.util.*;
-import java.util.stream.*;
 
 import static com.hexadecoder.CompressedDataDecoder.INVALID_ENCODING_BYTE;
 import static com.hexadecoder.CompressedPair.invalidPair;
 import static com.hexadecoder.CompressedPair.pairOf;
-import static com.hexadecoder.util.StringConverter.toByte;
+import static com.hexadecoder.util.StringConverter.toHexByte;
 import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -25,7 +24,7 @@ public class CompressedDataDecoderTest {
         List<Byte> decodedBytes = decoder.decode(List.of(pairOf("0", value)));
 
         assertEquals(1, decodedBytes.size());
-        assertEquals(toByte(value), decodedBytes.get(0));
+        assertEquals(toHexByte(value), decodedBytes.get(0));
     }
 
     @Test
@@ -55,7 +54,7 @@ public class CompressedDataDecoderTest {
 
         assertEquals(2, decodedBytes.size());
         assertEquals(INVALID_ENCODING_BYTE, decodedBytes.get(0));
-        assertEquals(toByte(value), decodedBytes.get(1));
+        assertEquals(toHexByte(value), decodedBytes.get(1));
     }
 
     @Test
@@ -65,8 +64,8 @@ public class CompressedDataDecoderTest {
         List<Byte> decodedBytes = decoder.decode(List.of(pairOf("0", value), pairOf("1", "1")));
 
         assertEquals(2, decodedBytes.size());
-        assertEquals(toByte(value), decodedBytes.get(0));
-        assertEquals(toByte(value), decodedBytes.get(1));
+        assertEquals(toHexByte(value), decodedBytes.get(0));
+        assertEquals(toHexByte(value), decodedBytes.get(1));
     }
 
     @Test
@@ -81,7 +80,7 @@ public class CompressedDataDecoderTest {
 
     private List<Byte> toBytes(List<Integer> values) {
         return values.stream()
-                .map(value -> toByte(value.toString()))
+                .map(value -> toHexByte(value.toString()))
                 .collect(toList());
     }
 }

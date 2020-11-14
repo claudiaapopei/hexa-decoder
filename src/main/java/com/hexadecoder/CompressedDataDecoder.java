@@ -5,16 +5,22 @@ import com.hexadecoder.decoder.*;
 import java.util.*;
 
 import static com.hexadecoder.CompressedPair.isInvalidPair;
-import static com.hexadecoder.util.StringConverter.toByte;
+import static com.hexadecoder.util.StringConverter.toHexByte;
 
+/**
+ * Given a list of pairs, it decodes them depending on the nature of that pair.
+ * The input might contain invalid pair, so for that case no decoder is used, and a default byte value is returned.
+ */
 public class CompressedDataDecoder {
 
-    public static final Byte INVALID_ENCODING_BYTE = toByte("3F");
+    public static final Byte INVALID_ENCODING_BYTE = toHexByte("3F");
     private final List<Byte> result = new ArrayList<>();
     private final PairDecoderFactory decoderFactory = new PairDecoderFactory();
 
     public List<Byte> decode(List<CompressedPair> pairs) {
-        pairs.forEach(pair -> result.addAll(toBytes(pair)));
+        pairs.forEach(pair ->
+                result.addAll(toBytes(pair))
+        );
         return result;
     }
 

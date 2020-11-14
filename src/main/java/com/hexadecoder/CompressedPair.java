@@ -2,7 +2,7 @@ package com.hexadecoder;
 
 import java.util.*;
 
-import static com.hexadecoder.util.StringConverter.toByte;
+import static com.hexadecoder.util.StringConverter.toHexByte;
 import static com.hexadecoder.util.StringConverter.toInt;
 
 public class CompressedPair {
@@ -15,6 +15,13 @@ public class CompressedPair {
         this.compressedValue = compressedValue;
     }
 
+    /**
+     * Given two values, it converts them into a CompressedPair if they follow the following validations rules:
+     * - they key is a positive integer
+     * - when the key is 0 then the value can be converted to hexadecimal byte
+     * - when the key > 0 then the value is a positive integer, but less or equal with the value of the key
+     * When one of the validations fails, then a default invalid pair is returned.
+     */
     public static CompressedPair pairOf(String key, String value) {
         if (!canConvertToInt(key)) {
             return invalidPair();
@@ -56,7 +63,7 @@ public class CompressedPair {
 
     private static boolean canConvertToByte(String value) {
         try {
-            toByte(value);
+            toHexByte(value);
         } catch (NumberFormatException ex) {
             return false;
         }
