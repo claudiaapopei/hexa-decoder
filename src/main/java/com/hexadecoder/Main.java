@@ -8,9 +8,6 @@ public class Main {
 
         List<CompressedPair> compressedPairs = new CompressedDataReader().readCompressedPairs();
         List<Byte> decodedData = new CompressedDataDecoder().decode(compressedPairs);
-        decodedData.forEach(decodedByte -> {
-            System.out.printf("%02x", decodedByte);
-            System.out.print(" ");
-        });
+        new DecodedDataPrinter().print(decodedData);
     }
 }
